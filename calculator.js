@@ -1,12 +1,24 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const axios = require('axios');
 
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.static('public'));
 
 app.get("/", (req, res)=>{
    res.sendFile(__dirname+'/index.html');
 } );
+
+app.get('/java', async (req, res) => {
+   try {
+       const url = 'https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=1e9337b3055fef44005cc4d61842ed62&units=metric'; // Replace with the URL you want to fetch data from
+       const response = await axios.get(url);
+       res.json(response.data); // Send the fetched data as a response
+   } catch (error) {
+       res.status(500).send('Error fetching data');
+   }
+});
 
 app.post("/", (req,res)=>{
     console.log(req.body);
@@ -34,6 +46,17 @@ app.post("/", (req,res)=>{
     else description = "อ้วนมาก ค่า BMI: อยู่ในช่วง 30.0 ขึ้นไป ภาวะเสี่ยงต่อโรค: เสี่ยงต่อการเกิดโรค"
     res.send("คุณมีค่า BMI = " + BMI + " , คุณอยู่ในเกณฑ์: " + description);
   });  
+
+app.get('/kanye', async (req, res) => {
+   try {
+       const url = 'https://api.kanye.rest/'; // Replace with the URL you want to fetch data from
+       const response = await axios.get(url);
+       res.json(response.data); // Send the fetched data as a response
+   } catch (error) {
+       res.status(500).send('Error fetching data');
+   }
+});
+
 
 app.listen(3000, ()=> {
    console.log ("Server is running on port 3000");
