@@ -27,12 +27,12 @@ app.post("/", (req,res)=>{
     var height  = Number(req.body.height)/100;
     var BMI = Math.round(weight/(height*height));
     var description = "";
-    if (BMI <= 18.5) description = "ผอมเกินไป"
-    else if (BMI < 23) description = "น้ำหนักปกติ เหมาะสม"
-    else if (BMI < 25) description = "น้ำหนักเกิน"
-    else if (BMI < 30) description = "อ้วน"
-    else description = "อ้วนมาก"
-    res.send("คุณมีค่า BMI = " + BMI + " , คุณอยู่ในเกณฑ์ = " + description);
+    if (BMI < 18.5) description = "ผอมเกินไป ค่า BMI: อยู่ในช่วง น้อยกว่า 18.5 ภาวะเสี่ยงต่อโรค: เสี่ยงต่อการได้รับสารอาหารไม่เพียงพอ"
+    else if (BMI <= 22.9) description = "น้ำหนักปกติ เหมาะสม ค่า BMI: อยู่ในช่วง 18.6-22.9 ภาวะเสี่ยงต่อโรค: มีความเสี่ยงต่อโรคน้อยที่สุด"
+    else if (BMI <= 24.9) description = "น้ำหนักเกิน ค่า BMI: อยู่ในช่วง 23.0-24.9 ภาวะเสี่ยงต่อโรค: ถือว่ายังมีความเสี่ยงมากกว่าคนปกติ"
+    else if (BMI <= 29.9) description = "อ้วน ค่า BMI: อยู่ในช่วง 25.0-29.9 ภาวะเสี่ยงต่อโรค: ยังมีความเสี่ยงต่อการเกิดโรค"
+    else description = "อ้วนมาก ค่า BMI: อยู่ในช่วง 30.0 ขึ้นไป ภาวะเสี่ยงต่อโรค: เสี่ยงต่อการเกิดโรค"
+    res.send("คุณมีค่า BMI = " + BMI + " , คุณอยู่ในเกณฑ์: " + description);
   });  
 
 app.listen(3000, ()=> {
